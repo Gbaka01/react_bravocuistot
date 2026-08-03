@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+body {
+  background-image: url("https://st3.depositphotos.com/13324256/16360/i/450/depositphotos_163603140-stock-photo-woman-cutting-mushrooms.jpg");
+  font-family: "Dancing Script", cursive;
+  font-optical-sizing: auto;
+  font-weight: 700;
+  font-style: normal;
+}
