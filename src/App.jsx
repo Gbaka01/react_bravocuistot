@@ -9,6 +9,7 @@ import Formulaire from "./pages/Formulaire.jsx";
 import Recettes from "./pages/Recettes.jsx";
 import Ingredient from "./pages/Ingredient.jsx";
 import Categorie from "./pages/Categorie.jsx";
+import Recherche from "./pages/Recherche.jsx";
 import Moderation from "./pages/Moderation.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Mentions from "./pages/Mentions.jsx";
@@ -31,6 +32,7 @@ function App() {
           <Route path="/categorie/new"  element={<Categorie />} />
           <Route path="/note/new" element={<Note />} />
           <Route path="/mentions" element={<Mentions />} />
+          <Route path="/recherche" element={<Recherche />} />
           <Route path="/moderation" element={<ProtectedRoute allowedRoles={["moderateur", "admin"]}>
 
       <Moderation />

@@ -5,25 +5,34 @@ import "../css/accueil.css";
 
 const SERVER_URL =
   import.meta.env.VITE_SERVER_URL ||
-  "https://node-bravocuistot.onrender.com";
+  "https://node-bravocuistot-2.onrender.com";
 
 const DEFAULT_IMAGE = "/images/recette-default.jpg";
 
-const getImageUrl = (image) => {
+const getImageUrl = (image, version = "") => {
   if (!image || typeof image !== "string") {
     return DEFAULT_IMAGE;
   }
 
+  const addCacheVersion = (url) => {
+    if (!version) return url;
+
+    const separator = url.includes("?") ? "&" : "?";
+    return `${url}${separator}v=${encodeURIComponent(version)}`;
+  };
+
   if (/^https?:\/\//i.test(image)) {
-    return image;
+    return addCacheVersion(image);
   }
 
   const serverUrl = SERVER_URL.replace(/\/+$/, "");
   const imagePath = image.replace(/^\/+/, "");
 
-  return imagePath.startsWith("uploads/")
+  const imageUrl = imagePath.startsWith("uploads/")
     ? `${serverUrl}/${imagePath}`
     : `${serverUrl}/uploads/${imagePath}`;
+
+  return addCacheVersion(imageUrl);
 };
 
 const getToken = () => localStorage.getItem("token");
@@ -244,18 +253,12 @@ async function saveUpdate(recetteId) {
       }
     );
 
-    const updatedRecette =
-      response.data?.recette ?? response.data;
-
-    setRecettes((currentRecettes) =>
-      currentRecettes.map((recette) =>
-        recette._id === recetteId
-          ? updatedRecette
-          : recette
-      )
-    );
-
     cancelEditing();
+
+    // Recharge la recette réellement enregistrée par MongoDB.
+    // Cela évite d'utiliser une réponse partielle et actualise l'image.
+    await loadRecettes();
+
     setMessage(
       response.data?.message ||
         "Recette modifiée avec succès."
@@ -556,7 +559,10 @@ async function saveUpdate(recetteId) {
                       </h2>
 
                       <img
-                        src={getImageUrl(recette.image)}
+                        src={getImageUrl(
+                          recette.image,
+                          recette.updatedAt
+                        )}
                         alt={recette.fiche || "Recette"}
                         className="img-fluid rounded mb-3"
                         style={{

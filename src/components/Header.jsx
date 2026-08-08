@@ -50,6 +50,12 @@ export default function Header() {
                   Mentions     
                 </NavLink>
               </li>
+                      <li className="nav-item">
+                <NavLink className="nav-link" to="/recherche">
+                  Rechercher une recette    
+                </NavLink>
+              </li>
+              
 
               {isLoggedIn ? (
                 <>
