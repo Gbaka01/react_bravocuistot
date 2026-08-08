@@ -78,11 +78,11 @@ export default function Recherche() {
 
   return (
     <main className="container py-5">
-      <h1 className="mb-4">
+      <h1 className="mb-4 text-light">
         Rechercher une recette
       </h1>
 
-      <div className="mb-4">
+      <div className="mb-4 text-light">
         <label
           htmlFor="search"
           className="form-label"
