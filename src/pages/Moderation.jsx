@@ -5,7 +5,7 @@ import "../css/accueil.css";
 
 const SERVER_URL =
   import.meta.env.VITE_SERVER_URL ||
-  "https://node-bravocuistot-2.onrender.com";
+  "https://node-bravocuistot-1.onrender.com";
 
 const DEFAULT_IMAGE = "/images/recette-default.jpg";
 

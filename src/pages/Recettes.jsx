@@ -4,7 +4,7 @@ import "../css/accueil.css";
 
 const SERVER_URL =
   import.meta.env.VITE_SERVER_URL ||
-  "https://node-bravocuistot-2.onrender.com";
+  "https://node-bravocuistot-1.onrender.com";
 
 const DEFAULT_IMAGE = "/images/recette-default.jpg";
 
@@ -44,6 +44,23 @@ function getRecetteIdFromNote(note) {
   return String(note.recetty);
 }
 
+function getRecetteIdFromIngredient(ingredient) {
+  const recette =
+    ingredient?.recetty ??
+    ingredient?.recette ??
+    ingredient?.recipe;
+
+  if (!recette) {
+    return null;
+  }
+
+  if (typeof recette === "object" && recette._id) {
+    return String(recette._id);
+  }
+
+  return String(recette);
+}
+
 function getErrorMessage(error) {
   const responseData = error.response?.data;
 
@@ -67,6 +84,8 @@ export default function Recettes() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [notesError, setNotesError] = useState("");
+  const [ingredientsError, setIngredientsError] =
+    useState("");
   const [showScrollTop, setShowScrollTop] =
     useState(false);
 
@@ -104,15 +123,21 @@ export default function Recettes() {
         setLoading(true);
         setError("");
         setNotesError("");
+        setIngredientsError("");
 
         /*
          * allSettled permet de continuer à afficher
          * les recettes même si /note/all échoue.
          */
-        const [recettesResult, notesResult] =
+        const [
+          recettesResult,
+          notesResult,
+          ingredientsResult,
+        ] =
           await Promise.allSettled([
             api.get("/recette/all"),
             api.get("/note/all"),
+            api.get("/ingredient/all"),
           ]);
 
         if (recettesResult.status === "rejected") {
@@ -133,6 +158,7 @@ export default function Recettes() {
         }
 
         let notesData = [];
+        let ingredientsData = [];
 
         if (notesResult.status === "fulfilled") {
           const notesResponse = notesResult.value;
@@ -162,6 +188,35 @@ export default function Recettes() {
           );
         }
 
+        if (ingredientsResult.status === "fulfilled") {
+          const ingredientsResponse =
+            ingredientsResult.value;
+
+          const receivedIngredients =
+            ingredientsResponse.data?.ingredients ??
+            ingredientsResponse.data;
+
+          if (Array.isArray(receivedIngredients)) {
+            ingredientsData = receivedIngredients;
+          } else {
+            setIngredientsError(
+              "Le format des ingrédients est invalide."
+            );
+          }
+        } else {
+          console.error(
+            "Erreur de chargement des ingrédients :",
+            ingredientsResult.reason?.response?.data ||
+              ingredientsResult.reason
+          );
+
+          setIngredientsError(
+            `Les ingrédients ne peuvent pas être chargés : ${getErrorMessage(
+              ingredientsResult.reason
+            )}`
+          );
+        }
+
         const recettesAvecNotes = recettesData.map(
           (recette) => {
             const recetteId = String(recette._id);
@@ -174,8 +229,20 @@ export default function Recettes() {
                 return noteRecetteId === recetteId;
               });
 
+            const ingredientsDeLaRecette =
+              Array.isArray(recette.ingredients) &&
+              recette.ingredients.length > 0
+                ? recette.ingredients
+                : ingredientsData.filter(
+                    (ingredient) =>
+                      getRecetteIdFromIngredient(
+                        ingredient
+                      ) === recetteId
+                  );
+
             return {
               ...recette,
+              ingredients: ingredientsDeLaRecette,
               notes: notesDeLaRecette,
             };
           }
@@ -267,6 +334,16 @@ export default function Recettes() {
           role="alert"
         >
           {notesError}
+        </div>
+      )}
+
+
+      {!error && ingredientsError && (
+        <div
+          className="alert alert-warning"
+          role="alert"
+        >
+          {ingredientsError}
         </div>
       )}
 
