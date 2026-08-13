@@ -6,6 +6,10 @@ const SERVER_URL =
   import.meta.env.VITE_SERVER_URL ||
   "https://node-bravocuistot-1.onrender.com";
 
+// Les appels utilisent une URL absolue afin d'éviter qu'en production
+// Axios interroge par erreur le domaine du frontend.
+const API_URL = SERVER_URL.replace(/\/+$/, "");
+
 const DEFAULT_IMAGE = "/images/recette-default.jpg";
 
 function getImageUrl(image) {
@@ -79,6 +83,14 @@ function getErrorMessage(error) {
   return "Une erreur inattendue est survenue.";
 }
 
+function getRequestErrorMessage(error, endpoint) {
+  if (error.response?.status === 404) {
+    return `Route API introuvable : ${API_URL}${endpoint}`;
+  }
+
+  return getErrorMessage(error);
+}
+
 export default function Recettes() {
   const [recettes, setRecettes] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -135,9 +147,9 @@ export default function Recettes() {
           ingredientsResult,
         ] =
           await Promise.allSettled([
-            api.get("/recette/all"),
-            api.get("/note/all"),
-            api.get("/ingredient/all"),
+            api.get(`${API_URL}/recette/all`),
+            api.get(`${API_URL}/note/all`),
+            api.get(`${API_URL}/ingredient/all`),
           ]);
 
         if (recettesResult.status === "rejected") {
@@ -182,8 +194,9 @@ export default function Recettes() {
           );
 
           setNotesError(
-            `Les avis ne peuvent pas être chargés : ${getErrorMessage(
-              notesResult.reason
+            `Les avis ne peuvent pas être chargés : ${getRequestErrorMessage(
+              notesResult.reason,
+              "/note/all"
             )}`
           );
         }
@@ -211,8 +224,9 @@ export default function Recettes() {
           );
 
           setIngredientsError(
-            `Les ingrédients ne peuvent pas être chargés : ${getErrorMessage(
-              ingredientsResult.reason
+            `Les ingrédients ne peuvent pas être chargés : ${getRequestErrorMessage(
+              ingredientsResult.reason,
+              "/ingredient/all"
             )}`
           );
         }
@@ -266,7 +280,12 @@ export default function Recettes() {
 
         if (componentMounted) {
           setRecettes([]);
-          setError(getErrorMessage(error));
+          setError(
+            getRequestErrorMessage(
+              error,
+              "/recette/all"
+            )
+          );
         }
       } finally {
         if (componentMounted) {

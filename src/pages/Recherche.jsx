@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
 import api from "../lib/axios";
 
+const SERVER_URL = (
+  import.meta.env.VITE_SERVER_URL ||
+  "https://node-bravocuistot-1.onrender.com"
+).replace(/\/+$/, "");
+
 export default function Recherche() {
   const [recettes, setRecettes] = useState([]);
   const [search, setSearch] = useState("");
@@ -15,7 +20,9 @@ export default function Recherche() {
         setLoading(true);
         setError("");
 
-        const response = await api.get("/recette/all", {
+        const endpoint = `${SERVER_URL}/recette/all`;
+
+        const response = await api.get(endpoint, {
           params: {
             search: search.trim(),
           },
@@ -31,37 +38,47 @@ export default function Recherche() {
           );
         }
 
-        setRecettes(data);
+        if (!controller.signal.aborted) {
+          setRecettes(data);
+        }
       } catch (error) {
         const requestCancelled =
           error.name === "CanceledError" ||
           error.code === "ERR_CANCELED";
 
-        if (!requestCancelled) {
-          console.error(
-            "Erreur de recherche :",
-            error
-          );
+        if (requestCancelled) {
+          return;
+        }
 
-          if (error.response?.status === 404) {
-            setError(
-              "Route introuvable. Vérifiez l'adresse de l'API."
-            );
-          } else if (error.response?.status >= 500) {
-            setError(
-              "Le serveur rencontre une erreur."
-            );
-          } else if (!error.response) {
-            setError(
-              "Impossible de contacter le serveur. Vérifiez CORS et l'adresse de l'API."
-            );
-          } else {
-            setError(
-              error.response?.data?.message ||
-                error.message ||
-                "La recherche des recettes a échoué."
-            );
-          }
+        const requestedUrl =
+          error.config?.url ||
+          `${SERVER_URL}/recette/all`;
+
+        console.error("Erreur de recherche :", {
+          status: error.response?.status,
+          url: requestedUrl,
+          response: error.response?.data,
+          error,
+        });
+
+        if (error.response?.status === 404) {
+          setError(
+            `Route API introuvable : ${requestedUrl}`
+          );
+        } else if (error.response?.status >= 500) {
+          setError(
+            "Le serveur rencontre une erreur interne."
+          );
+        } else if (!error.response) {
+          setError(
+            "Impossible de contacter le serveur. Vérifiez l’adresse de l’API et la configuration CORS."
+          );
+        } else {
+          setError(
+            error.response?.data?.message ||
+              error.message ||
+              "La recherche des recettes a échoué."
+          );
         }
       } finally {
         if (!controller.signal.aborted) {
@@ -83,10 +100,7 @@ export default function Recherche() {
       </h1>
 
       <div className="mb-4 text-light">
-        <label
-          htmlFor="search"
-          className="form-label"
-        >
+        <label htmlFor="search" className="form-label">
           Mot-clé
         </label>
 
@@ -102,26 +116,25 @@ export default function Recherche() {
         />
       </div>
 
-      {loading && <p>Recherche en cours…</p>}
+      {loading && (
+        <p className="text-light">
+          Recherche en cours…
+        </p>
+      )}
 
       {error && (
-        <div
-          className="alert alert-danger"
-          role="alert"
-        >
+        <div className="alert alert-danger" role="alert">
           {error}
         </div>
       )}
 
-      {!loading &&
-        !error &&
-        recettes.length === 0 && (
-          <div className="alert alert-info">
-            Aucune recette trouvée.
-          </div>
-        )}
+      {!loading && !error && recettes.length === 0 && (
+        <div className="alert alert-info">
+          Aucune recette trouvée.
+        </div>
+      )}
 
-      {!loading && !error && (
+      {!loading && !error && recettes.length > 0 && (
         <div className="row g-4">
           {recettes.map((recette) => (
             <div
@@ -131,12 +144,16 @@ export default function Recherche() {
               <article className="card h-100 shadow-sm">
                 <div className="card-body">
                   <h2 className="h5">
-                    {recette.fiche}
+                    {recette.fiche ||
+                      "Recette sans titre"}
                   </h2>
 
-                  <p>{recette.description3}</p>
+                  <p>
+                    {recette.description3 ||
+                      "Aucune description."}
+                  </p>
 
-                  {recette.category && (
+                  {recette.category?.description2 && (
                     <span className="badge bg-danger">
                       {recette.category.description2}
                     </span>

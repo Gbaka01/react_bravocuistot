@@ -33,6 +33,8 @@ function App() {
           <Route path="/note/new" element={<Note />} />
           <Route path="/mentions" element={<Mentions />} />
           <Route path="/recherche" element={<Recherche />} />
+        
+
           <Route path="/moderation" element={<ProtectedRoute allowedRoles={["moderateur", "admin"]}>
 
       <Moderation />
