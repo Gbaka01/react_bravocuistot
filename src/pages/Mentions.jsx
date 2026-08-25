@@ -2,6 +2,7 @@ const SITE_URL = "https://www.bravocuistot-goli.fr";
 const EMAIL = "gore.goli@gmail.com";
 const PHONE_DISPLAY = "07 60 23 29 63";
 const PHONE_LINK = "+33760232963";
+const ADDRESS = "16 rue de Châtillon, 91260 Juvisy-sur-Orge, France";
 
 export default function Mentions() {
   return (
@@ -14,272 +15,127 @@ export default function Mentions() {
         }}
       >
         <header className="text-center mb-5">
-          <h1>Conditions générales d’utilisation</h1>
+          <h1>Mentions légales</h1>
+
           <p className="text-light mb-0">
-            En vigueur au <strong>1er août 2026</strong>
+            Informations légales relatives au site Bravo Cuistot
           </p>
         </header>
 
-        <p>
-          Les présentes conditions générales d’utilisation, dites « CGU », ont
-          pour objet de définir les conditions d’accès et d’utilisation du site
-          et de ses services par l’Utilisateur.
-        </p>
-
-        <p>
-          Les présentes CGU sont accessibles sur le site à la rubrique « CGU ».
-        </p>
-
-        <p>
-          Toute inscription ou utilisation du site implique l’acceptation sans
-          réserve des présentes CGU. Lors de son inscription, chaque utilisateur
-          accepte expressément les CGU en cochant la case prévue à cet effet.
-        </p>
-
-        <p>
-          En cas de non-acceptation des présentes CGU, l’Utilisateur doit
-          renoncer à utiliser les services proposés par le site.
-        </p>
-
-        <p>
-          Le site{" "}
-          <a
-            href={SITE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-info"
-          >
-            {SITE_URL}
-          </a>{" "}
-          se réserve le droit de modifier les présentes CGU à tout moment.
-        </p>
-
-        <section>
-          <h2 className="h4 mt-5">Article 1 – Mentions légales</h2>
+        <section className="mb-5" aria-labelledby="introduction">
+          <h2 id="introduction" className="h4">
+            Informations générales
+          </h2>
 
           <p>
-            L’édition et la direction de la publication du site sont assurées
-            par <strong>GOLI Goré Gbaka</strong>, domicilié au 16 rue de
-            Châtillon, 91260 Juvisy-sur-Orge, France.
+            Conformément aux dispositions de la loi n° 2004-575 du
+            21 juin 2004 pour la confiance dans l’économie numérique,
+            les utilisateurs du site Bravo Cuistot sont informés de
+            l’identité des différents intervenants participant à sa
+            réalisation et à son suivi.
+          </p>
+        </section>
+
+        <section className="mb-5" aria-labelledby="edition">
+          <h2 id="edition" className="h4">
+            Édition du site
+          </h2>
+
+          <p>
+            Le présent site, accessible à l’adresse{" "}
+            <a
+              href={SITE_URL}
+              className="link-light"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {SITE_URL}
+            </a>
+            , est édité par :
           </p>
 
-          <address className="mb-3">
+          <address className="mb-0">
+            <strong>Gore Gbaka GOLI</strong>
+            <br />
+            {ADDRESS}
+          </address>
+        </section>
+
+        <section className="mb-5" aria-labelledby="publication">
+          <h2 id="publication" className="h4">
+            Directeur de la publication
+          </h2>
+
+          <p>
+            Le directeur de la publication du site est{" "}
+            <strong>Gore Gbaka GOLI</strong>.
+          </p>
+        </section>
+
+        <section className="mb-5" aria-labelledby="hebergement">
+          <h2 id="hebergement" className="h4">
+            Hébergement
+          </h2>
+
+          <p>
+            Le site est hébergé par :
+          </p>
+
+          <address>
+            <strong>OVH SAS</strong>
+            <br />
+            2 rue Kellermann
+            <br />
+            BP 80157
+            <br />
+            59053 Roubaix Cedex 1
+            <br />
+            France
+            <br />
             Téléphone :{" "}
-            <a href={`tel:${PHONE_LINK}`} className="text-info">
+            <a href="tel:1007" className="link-light">
+              1007
+            </a>
+          </address>
+        </section>
+
+        <section className="mb-5" aria-labelledby="contact">
+          <h2 id="contact" className="h4">
+            Nous contacter
+          </h2>
+
+          <address>
+            <strong>Par téléphone :</strong>{" "}
+            <a href={`tel:${PHONE_LINK}`} className="link-light">
               {PHONE_DISPLAY}
             </a>
             <br />
-            Adresse électronique :{" "}
-            <a href={`mailto:${EMAIL}`} className="text-info">
+
+            <strong>Par courriel :</strong>{" "}
+            <a href={`mailto:${EMAIL}`} className="link-light">
               {EMAIL}
             </a>
+            <br />
+
+            <strong>Par courrier :</strong> {ADDRESS}
           </address>
-
-          <p>
-            Le site est hébergé par <strong>OVH SAS</strong>, 2 rue Kellermann,
-            59100 Roubaix, France. Téléphone : 1007.
-          </p>
         </section>
 
-        <section>
-          <h2 className="h4 mt-5">Article 2 – Accès au site</h2>
-
-          <p>
-            Le site permet à l’Utilisateur d’accéder à un service de
-            consultation et de partage de recettes de cuisine.
-          </p>
-
-          <p>
-            Le site est accessible gratuitement à tout Utilisateur disposant
-            d’un accès à Internet. Les frais liés au matériel, aux logiciels et
-            à la connexion Internet restent à la charge de l’Utilisateur.
-          </p>
-
-          <p>
-            Certaines fonctionnalités sont réservées aux membres inscrits.
-            L’Utilisateur s’engage à fournir des informations sincères et
-            exactes lors de son inscription.
-          </p>
-
-          <p>
-            L’Utilisateur est responsable de la confidentialité de ses
-            identifiants. Il peut demander la suppression de son compte depuis
-            son espace personnel ou en contactant l’éditeur.
-          </p>
-
-          <p>
-            Le site peut être temporairement interrompu pour des raisons de
-            maintenance, de sécurité ou de force majeure. Ces interruptions
-            n’engagent pas la responsabilité de l’éditeur.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="h4 mt-5">
-            Article 3 – Données à caractère personnel
+        <section aria-labelledby="credits">
+          <h2 id="credits" className="h4">
+            Crédits
           </h2>
 
-          <p>
-            Les données personnelles sont traitées conformément à la
-            réglementation applicable, notamment au Règlement général sur la
-            protection des données et à la loi Informatique et Libertés.
-          </p>
-
-          <p>
-            L’Utilisateur dispose notamment d’un droit d’accès, de
-            rectification, d’effacement, de limitation et, dans certains cas,
-            d’opposition et de portabilité de ses données.
-          </p>
-
-          <p>
-            Pour exercer ses droits, l’Utilisateur peut écrire à{" "}
-            <a href={`mailto:${EMAIL}`} className="text-info">
-              {EMAIL}
-            </a>
-            .
-          </p>
-        </section>
-
-        <section>
-          <h2 className="h4 mt-5">Article 4 – Propriété intellectuelle</h2>
-
-          <p>
-            Les textes, images, logos, marques et autres contenus du site sont
-            protégés par le Code de la propriété intellectuelle.
-          </p>
-
-          <p>
-            Toute reproduction, représentation, publication ou adaptation de
-            ces contenus nécessite l’autorisation préalable de leur titulaire,
-            sauf dans les cas prévus par la loi.
-          </p>
-
-          <p>
-            Toute reproduction autorisée doit mentionner l’auteur et la source
-            du contenu.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="h4 mt-5">Article 5 – Responsabilité</h2>
-
-          <p>
-            L’éditeur s’efforce de fournir des informations fiables et à jour.
-            Il ne garantit toutefois pas que le site soit exempt d’erreurs,
-            d’omissions ou d’interruptions.
-          </p>
-
-          <p>
-            Les informations relatives aux recettes sont fournies à titre
-            informatif. L’Utilisateur doit notamment vérifier les ingrédients,
-            les allergènes et les règles d’hygiène correspondant à sa situation.
-          </p>
-
-          <p>
-            L’Utilisateur est responsable de son compte et doit conserver son
-            mot de passe secret. Toute utilisation effectuée depuis son compte
-            est présumée avoir été réalisée par lui, sauf preuve contraire.
-          </p>
-
-          <p>
-            La responsabilité de l’éditeur ne peut être engagée en cas de force
-            majeure ou de fait imprévisible et insurmontable d’un tiers.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="h4 mt-5">Article 6 – Liens hypertextes</h2>
-
-          <p>
-            Le site peut contenir des liens vers des sites externes. L’éditeur
-            n’exerce aucun contrôle sur ces sites et ne peut être tenu
-            responsable de leur disponibilité ou de leur contenu.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="h4 mt-5">Article 7 – Cookies</h2>
-
-          <p>
-            Le site peut utiliser des cookies nécessaires à son fonctionnement
-            ainsi que, sous réserve du consentement de l’Utilisateur, des
-            cookies de mesure d’audience ou provenant de services tiers.
-          </p>
-
-          <p>
-            L’Utilisateur peut gérer les cookies depuis le bandeau de
-            consentement proposé sur le site et depuis les paramètres de son
-            navigateur.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="h4 mt-5">
-            Article 8 – Publications des utilisateurs
-          </h2>
-
-          <p>
-            Les membres peuvent publier des recettes, des images, des
-            ingrédients, des notes et des commentaires.
-          </p>
-
-          <p>
-            L’Utilisateur s’engage à ne pas publier de contenu illicite,
-            injurieux, diffamatoire, haineux, violent, trompeur ou portant
-            atteinte aux droits d’un tiers.
-          </p>
-
-          <p>
-            L’Utilisateur garantit disposer des droits nécessaires sur les
-            textes et les images qu’il publie. Il reste titulaire de ses droits
-            de propriété intellectuelle.
-          </p>
-
-          <p>
-            En publiant un contenu, l’Utilisateur accorde au site une
-            autorisation non exclusive et gratuite de l’héberger, de le
-            reproduire et de l’afficher dans la mesure nécessaire au
-            fonctionnement du service.
-          </p>
-
-          <p>
-            Le site peut modérer, refuser ou supprimer un contenu qui ne
-            respecte pas les présentes CGU ou la législation applicable.
-          </p>
-
-          <p>
-            L’Utilisateur peut signaler un contenu depuis la fonctionnalité de
-            signalement prévue sur le site ou en contactant l’éditeur.
-          </p>
-        </section>
-
-        <section>
-          <h2 className="h4 mt-5">
-            Article 9 – Droit applicable et règlement des litiges
-          </h2>
-
-          <p>Les présentes CGU sont soumises au droit français.</p>
-
-          <p>
-            En cas de différend, les parties chercheront d’abord une solution
-            amiable. À défaut d’accord, le litige pourra être porté devant la
-            juridiction compétente conformément aux règles légales applicables.
-          </p>
-
-          <p>
-            Pour toute question concernant les présentes CGU, l’Utilisateur
-            peut contacter l’éditeur à l’adresse{" "}
-            <a href={`mailto:${EMAIL}`} className="text-info">
-              {EMAIL}
-            </a>
-            .
+          <p className="mb-0">
+            Mentions légales initialement générées à l’aide du service
+            Legalstart, puis adaptées pour le site Bravo Cuistot.
           </p>
         </section>
 
         <footer className="mt-5 pt-4 border-top">
           <p className="mb-0 fst-italic text-light">
-            Document à faire vérifier par un professionnel du droit avant sa
-            publication définitive.
+            Ce document doit être vérifié par un professionnel du droit
+            avant sa publication définitive.
           </p>
         </footer>
       </article>
