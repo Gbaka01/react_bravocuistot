@@ -55,7 +55,12 @@ export default function Header() {
                   Rechercher une recette    
                 </NavLink>
               </li>
-                        <li className="nav-item">
+     
+              
+
+              {isLoggedIn ? (
+                <>
+                                   <li className="nav-item">
                     <NavLink
                       className="nav-link"
                       to="/profile"
@@ -63,10 +68,6 @@ export default function Header() {
                       Supprimer son compte
                     </NavLink>
                   </li>
-              
-
-              {isLoggedIn ? (
-                <>
        
 
                   <li className="nav-item">
