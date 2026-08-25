@@ -4,7 +4,7 @@ import axios from "axios";
 const api = axios.create({
   baseURL:
     import.meta.env.VITE_API_URL ||
-    "https://node-bravocuistot-1.onrender.com",
+    "https://node-bravocuistot.onrender.com",
 });
 
 export default api;

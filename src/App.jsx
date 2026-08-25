@@ -11,6 +11,8 @@ import Ingredient from "./pages/Ingredient.jsx";
 import Categorie from "./pages/Categorie.jsx";
 import Recherche from "./pages/Recherche.jsx";
 import Moderation from "./pages/Moderation.jsx";
+import DeleteAccountButton from "./pages/DeleteAccountButton.jsx";
+import Profile from "./pages/Profile.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import Mentions from "./pages/Mentions.jsx";
 import Note from "./pages/Note.jsx";
@@ -27,12 +29,14 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/recette/new" element={<Formulaire />} />
-          <Route path="/recette/all" element={<Recettes />} />
+          <Route path="/mesrecettes" element={<Recettes />} />
           <Route path="/ingredient/new" element={<Ingredient />} />
           <Route path="/categorie/new"  element={<Categorie />} />
           <Route path="/note/new" element={<Note />} />
           <Route path="/mentions" element={<Mentions />} />
           <Route path="/recherche" element={<Recherche />} />
+          <Route path="/delete-account" element={ <DeleteAccountButton />} />
+          <Route path="/profile" element={<Profile />} />
         
 
           <Route path="/moderation" element={<ProtectedRoute allowedRoles={["moderateur", "admin"]}>
