@@ -5,7 +5,7 @@ import "../css/accueil.css";
 
 const SERVER_URL =
   import.meta.env.VITE_SERVER_URL ||
-  "https://node-bravocuistot-1.onrender.com";
+  "https://node-bravocuistot.onrender.com";
 
 const DEFAULT_IMAGE = "/images/recette-default.jpg";
 
@@ -64,18 +64,14 @@ export default function Moderation() {
       behavior: "smooth",
     });
   };
-
   useEffect(() => {
     const handleScroll = () => {
       setShowScrollTop(window.scrollY > 200);
     };
-
     window.addEventListener("scroll", handleScroll, {
       passive: true,
     });
-
     handleScroll();
-
     return () => {
       window.removeEventListener(
         "scroll",
@@ -83,20 +79,16 @@ export default function Moderation() {
       );
     };
   }, []);
-
 const loadRecettes = useCallback(async () => {
   const token = getToken();
-
   if (!token) {
     setLoading(false);
     navigate("/login", { replace: true });
     return;
   }
-
   try {
     setLoading(true);
     setMessage("");
-
     const response = await api.get("/moderation/recettes", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -249,6 +241,7 @@ async function saveUpdate(recetteId) {
       {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": undefined,
         },
       }
     );

@@ -37,10 +37,7 @@ function App() {
           <Route path="/recherche" element={<Recherche />} />
           <Route path="/delete-account" element={ <DeleteAccountButton />} />
           <Route path="/profile" element={<Profile />} />
-        
-
           <Route path="/moderation" element={<ProtectedRoute allowedRoles={["moderateur", "admin"]}>
-
       <Moderation />
     </ProtectedRoute>} />
         </Routes>

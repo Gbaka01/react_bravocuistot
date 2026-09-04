@@ -4,7 +4,7 @@ import "../css/accueil.css";
 
 const SERVER_URL =
   import.meta.env.VITE_SERVER_URL ||
-  "https://node-bravocuistot-1.onrender.com";
+  "https://node-bravocuistot.onrender.com";
 
 // Les appels utilisent une URL absolue afin d'éviter qu'en production
 // Axios interroge par erreur le domaine du frontend.
