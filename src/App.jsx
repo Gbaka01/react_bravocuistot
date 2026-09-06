@@ -31,14 +31,16 @@ function App() {
           <Route path="/recette/new" element={<Formulaire />} />
           <Route path="/mesrecettes" element={<Recettes />} />
           <Route path="/ingredient/new" element={<Ingredient />} />
-          <Route path="/categorie/new"  element={<Categorie />} />
           <Route path="/note/new" element={<Note />} />
           <Route path="/mentions" element={<Mentions />} />
           <Route path="/recherche" element={<Recherche />} />
           <Route path="/delete-account" element={ <DeleteAccountButton />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/moderation" element={<ProtectedRoute allowedRoles={["moderateur", "admin"]}>
+          <Route path="/moderation" element={<ProtectedRoute allowedRoles={["moderateur"]}>
       <Moderation />
+      </ProtectedRoute>} />
+         <Route path="/categorie/new" element={<ProtectedRoute allowedRoles={["admin"]}>
+      <Categorie />
     </ProtectedRoute>} />
         </Routes>
       <Footer />
