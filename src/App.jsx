@@ -18,7 +18,6 @@ import Mentions from "./pages/Mentions.jsx";
 import Note from "./pages/Note.jsx";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
-
 function App() {
   return (
     <>
