@@ -10,10 +10,8 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://www.bravocuistot-goli.fr/" />
  
+  <!-- Icône : fichier à placer dans /public -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
- 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
  
   <!-- Open Graph -->
   <meta property="og:type" content="website" />
@@ -70,10 +68,11 @@
   <div id="root"></div>
  
   <!--
-    Google Tag Manager : chargé UNIQUEMENT après consentement à la « Mesure d'audience ».
-    Si GA4 est utilisé, configurez la balise GA4 dans GTM (pas de gtag dans la page).
+    Google Tag Manager : chargé UNIQUEMENT après consentement « Mesure d'audience »
+    (type="text/plain" + data-cookie-category="audience").
+    Si GA4 est utilisé, configurez la balise GA4 dans GTM (pas de gtag dans la page ni dans l'app).
   -->
-  <script type="text/plain" data-consent="audience">
+  <script type="text/plain" data-cookie-category="audience">
     (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -81,8 +80,12 @@
     })(window,document,'script','dataLayer','GTM-MD7STVWJ');
   </script>
  
-  <!-- Bandeau de consentement : fichier public/consentement.js, chargé AVANT l'application -->
-  <script src="/consentement.js" defer></script>
+  <!--
+    Bandeau de consentement : fichier public/cookie-consent.js, servi à la racine.
+    Dans l'app, <a href="#" data-cookie-manage>Gérer les cookies</a>
+    (ou window.SiteConsent.open()) rouvre les réglages.
+  -->
+  <script src="/cookie-consent.js" defer></script>
  
   <!-- Point d'entrée Vite / React -->
   <script type="module" src="/src/main.jsx"></script>
