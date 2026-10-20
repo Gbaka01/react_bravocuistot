@@ -3,16 +3,31 @@ import { useLocation } from "react-router-dom";
  
 /*
  * Mentions légales — bravocuistot-goli.fr (GOLI Gore Gbaka)
- * En vigueur au 25/09/2026 — rédigé à partir d'un modèle LegalPlace.
+ * Dernière mise à jour : 20/10/2026
  */
  
-const SITE_URL = "https://www.bravocuistot-goli.fr";
-const SITE_NAME = "bravocuistot-goli.fr";
-const EDITOR = "GOLI Gore Gbaka";
-const EMAIL = "gore.goli@gmail.com";
-const PHONE_DISPLAY = "07 60 29 23 63";
-const PHONE_LINK = "+33760292363";
-const ADDRESS = "16 rue de Châtillon, 91260 Juvisy-sur-Orge, France";
+const SITE = {
+  nom: "Bravo Cuistot",
+  url: "https://www.bravocuistot-goli.fr",
+  domaine: "www.bravocuistot-goli.fr",
+};
+ 
+const EDITEUR = {
+  nom: "Gore Gbaka GOLI",
+  ville: "Juvisy-sur-Orge (91260), France",
+  email: "gore.goli@gmail.com",
+};
+ 
+// À ADAPTER si le site n'est pas hébergé chez OVH.
+const HEBERGEUR = {
+  nom: "OVH SAS",
+  adresse: "2 rue Kellermann, 59100 Roubaix, France",
+  tel: "1007",
+  site: "https://www.ovhcloud.com/fr/",
+  siteAffiche: "ovhcloud.com",
+};
+ 
+const MISE_A_JOUR = "20 octobre 2026";
  
 const lienExterne = { target: "_blank", rel: "noopener noreferrer" };
  
@@ -22,7 +37,7 @@ export default function Mentions() {
   // Titre de l'onglet propre à cette page
   useEffect(() => {
     const ancienTitre = document.title;
-    document.title = "Mentions légales | Bravo Cuistot";
+    document.title = `Mentions légales | ${SITE.nom}`;
     return () => {
       document.title = ancienTitre;
     };
@@ -47,108 +62,112 @@ export default function Mentions() {
       >
         <header className="text-center mb-5">
           <h1 id="mentions-titre">Mentions légales</h1>
-          <p className="text-light mb-0">En vigueur au 25 septembre 2026</p>
+          <p className="text-light mb-0">Dernière mise à jour : {MISE_A_JOUR}</p>
         </header>
  
         <p>
-          Conformément à l’article 6 de la loi n° 2004-575 du 21 juin 2004 pour
-          la confiance dans l’économie numérique (LCEN), voici l’identité des
+          Conformément à l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour
+          la confiance dans l'économie numérique (LCEN), voici l'identité des
           personnes intervenant dans la réalisation et le suivi du site{" "}
-          <a className="link-light fw-bold" href={SITE_URL}>
-            {SITE_NAME}
-          </a>{" "}
-          (le « Site »).
+          <strong>{SITE.domaine}</strong> (le « Site »). La navigation sur le
+          Site vaut acceptation des présentes mentions légales.
         </p>
  
         <section id="edition" aria-labelledby="edition-titre">
-          <h2 id="edition-titre" className="h4 mt-4">Édition du site</h2>
-          <p className="mb-2">Le Site est édité à titre personnel par :</p>
-          <address>
-            {EDITOR}
+          <h2 id="edition-titre" className="h4 mt-4">
+            Édition du site
+          </h2>
+          <p>
+            Le Site est un site personnel non professionnel. L'édition et la
+            direction de la publication sont assurées par :
+          </p>
+          <address style={{ fontStyle: "normal" }}>
+            <strong>{EDITEUR.nom}</strong>
             <br />
-            {ADDRESS}
-            <br />
-            Téléphone :{" "}
-            <a className="link-light" href={`tel:${PHONE_LINK}`}>
-              {PHONE_DISPLAY}
-            </a>
+            {EDITEUR.ville}
             <br />
             E-mail :{" "}
-            <a className="link-light" href={`mailto:${EMAIL}`}>
-              {EMAIL}
+            <a href={`mailto:${EDITEUR.email}`} className="link-light">
+              {EDITEUR.email}
             </a>
           </address>
-          <p>Directeur de la publication : {EDITOR}.</p>
+          <p>
+            Conformément à l'article 6-III-2 de la LCEN, l'adresse postale et le
+            numéro de téléphone de l'éditeur ont été communiqués à l'hébergeur.
+          </p>
         </section>
  
         <section id="hebergement" aria-labelledby="hebergement-titre">
-          <h2 id="hebergement-titre" className="h4 mt-4">Hébergement</h2>
-          <address>
-            OVH SAS
+          <h2 id="hebergement-titre" className="h4 mt-4">
+            Hébergement
+          </h2>
+          <address style={{ fontStyle: "normal" }}>
+            <strong>{HEBERGEUR.nom}</strong>
             <br />
-            2 rue Kellermann, 59100 Roubaix, France
+            {HEBERGEUR.adresse}
             <br />
-            Téléphone : 1007 (depuis la France) ou +33 9 72 10 10 07
+            Téléphone : {HEBERGEUR.tel}
             <br />
             Site :{" "}
-            <a className="link-light" href="https://www.ovhcloud.com/fr/" {...lienExterne}>
-              www.ovhcloud.com
+            <a href={HEBERGEUR.site} className="link-light" {...lienExterne}>
+              {HEBERGEUR.siteAffiche}
             </a>
           </address>
         </section>
  
         <section id="acces" aria-labelledby="acces-titre">
-          <h2 id="acces-titre" className="h4 mt-4">Accès au site</h2>
+          <h2 id="acces-titre" className="h4 mt-4">
+            Accès au site
+          </h2>
           <p>
-            Le Site est normalement accessible à tout moment. L’éditeur peut
-            toutefois le suspendre, le limiter ou l’interrompre, notamment pour
-            des mises à jour ou des modifications de son contenu. Il ne pourra
-            être tenu responsable des conséquences éventuelles de cette
-            indisponibilité.
+            Le Site est normalement accessible à tout moment. L'éditeur peut
+            toutefois le suspendre, le limiter ou l'interrompre, notamment pour
+            des mises à jour ou des modifications de son contenu, sans pouvoir
+            être tenu responsable des conséquences de cette indisponibilité.
           </p>
         </section>
  
         <section id="propriete" aria-labelledby="propriete-titre">
-          <h2 id="propriete-titre" className="h4 mt-4">Propriété intellectuelle</h2>
+          <h2 id="propriete-titre" className="h4 mt-4">
+            Propriété intellectuelle
+          </h2>
           <p>
-            Les recettes, textes, photographies et le code du Site sont la
-            propriété de {EDITOR}, sauf mention contraire. Toute utilisation,
-            reproduction, diffusion, commercialisation ou modification de tout
-            ou partie du Site sans autorisation expresse est interdite et pourra
-            entraîner des poursuites judiciaires.
+            L'ensemble des contenus du Site (recettes, textes, photos, mise en
+            page) est la propriété de l'éditeur, sauf mention contraire. Toute
+            reproduction, diffusion, modification ou exploitation commerciale,
+            totale ou partielle, sans autorisation écrite préalable est
+            interdite et peut donner lieu à des poursuites.
           </p>
         </section>
  
         <section id="donnees" aria-labelledby="donnees-titre">
-          <h2 id="donnees-titre" className="h4 mt-4">Données personnelles</h2>
+          <h2 id="donnees-titre" className="h4 mt-4">
+            Données personnelles
+          </h2>
           <p>
-            Le responsable du traitement est {EDITOR} (coordonnées ci-dessus).
-            Les informations que vous envoyez via le formulaire de contact ou
-            par e-mail (nom, adresse e-mail, message) servent uniquement à vous
-            répondre. Elles ne sont ni vendues ni transmises à des tiers, et
-            sont conservées au maximum 3 ans après notre dernier échange.
+            Les données que vous transmettez sur le Site (par exemple lors d'une
+            prise de contact) sont utilisées uniquement pour vous répondre. Elles
+            ne sont ni vendues ni cédées à des tiers, et ne sont pas conservées
+            au-delà de ce qui est nécessaire.
           </p>
-          <p className="mb-2">
-            Conformément au Règlement général sur la protection des données
-            (RGPD, règlement UE 2016/679) et à la loi « Informatique et
-            Libertés » n° 78-17 du 6 janvier 1978, vous disposez d’un droit
-            d’accès, de rectification, d’effacement, d’opposition et de
-            limitation du traitement de vos données. Vous pouvez l’exercer :
-          </p>
-          <ul>
-            <li>
-              par e-mail à{" "}
-              <a className="link-light" href={`mailto:${EMAIL}`}>
-                {EMAIL}
-              </a>{" "}
-              ;
-            </li>
-            <li>depuis le formulaire de contact du Site.</li>
-          </ul>
           <p>
-            Si vous estimez que vos droits ne sont pas respectés, vous pouvez
-            adresser une réclamation à la{" "}
-            <a className="link-light" href="https://www.cnil.fr/fr/plaintes" {...lienExterne}>
+            Conformément au règlement (UE) 2016/679 (RGPD) et à la loi n° 78-17
+            du 6 janvier 1978 relative à l'informatique, aux fichiers et aux
+            libertés, vous disposez d'un droit d'accès, de rectification,
+            d'effacement, de limitation, de portabilité et d'opposition au
+            traitement de vos données. Pour l'exercer, écrivez à{" "}
+            <a href={`mailto:${EDITEUR.email}`} className="link-light">
+              {EDITEUR.email}
+            </a>
+            .
+          </p>
+          <p>
+            Vous pouvez également adresser une réclamation à la{" "}
+            <a
+              href="https://www.cnil.fr/fr/plaintes"
+              className="link-light"
+              {...lienExterne}
+            >
               CNIL
             </a>
             .
@@ -156,76 +175,19 @@ export default function Mentions() {
         </section>
  
         <section id="cookies" aria-labelledby="cookies-titre">
-          <h2 id="cookies-titre" className="h4 mt-4">Cookies</h2>
+          <h2 id="cookies-titre" className="h4 mt-4">
+            Cookies
+          </h2>
           <p>
-            Lors de votre première visite, un bandeau vous demande votre accord.
-            Aucun cookie de mesure d’audience n’est déposé avant votre choix, et
-            refuser est aussi simple qu’accepter. Votre choix est conservé
-            6 mois.
-          </p>
- 
-          <div className="table-responsive">
-            <table className="table table-dark table-bordered align-top">
-              <thead>
-                <tr>
-                  <th>Catégorie</th>
-                  <th>Service</th>
-                  <th>Finalité</th>
-                  <th>Durée</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Essentiels (toujours actifs)</td>
-                  <td>Site {SITE_NAME} (stockage local du navigateur)</td>
-                  <td>Mémoriser votre choix concernant les cookies</td>
-                  <td>6 mois</td>
-                </tr>
-                <tr>
-                  <td>Mesure d’audience (avec votre accord)</td>
-                  <td>Google Tag Manager / Google Analytics (Google Ireland Ltd)</td>
-                  <td>Statistiques de fréquentation pour améliorer le Site</td>
-                  <td>13 mois maximum</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
- 
-          <p>
-            Les données collectées par Google peuvent être transférées hors de
-            l’Union européenne, notamment aux États-Unis. Voir les{" "}
-            <a className="link-light" href="https://policies.google.com/privacy?hl=fr" {...lienExterne}>
-              règles de confidentialité de Google
-            </a>
-            .
-          </p>
-          <p>
-            Vous pouvez modifier ou retirer votre accord à tout moment :{" "}
-            <a
-              className="link-light"
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                window.SiteConsent?.open();
-              }}
-            >
-              gérer les cookies
-            </a>
-            .
+            Le Site utilise uniquement les cookies ou le stockage local
+            strictement nécessaires à son fonctionnement. Ils ne nécessitent pas
+            votre consentement, et aucun cookie de mesure d'audience ou
+            publicitaire n'est déposé.
           </p>
         </section>
- 
-        <p className="mt-5 mb-0">
-          <small>
-            Rédigé à partir d’un modèle{" "}
-            <a className="link-light" href="https://www.legalplace.fr/" {...lienExterne}>
-              LegalPlace
-            </a>
-            .
-          </small>
-        </p>
       </article>
     </main>
   );
 }
+
  
