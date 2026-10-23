@@ -57,3 +57,34 @@ footer svg {
 .media-item img:hover {
   transform: scale(1.05);
 }
+/* Styles limités à la page d'accueil (préfixe bc-) pour ne pas toucher Bootstrap ailleurs */
+.bc-accueil { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+ 
+.bc-hero {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.bc-hero-voile {
+  background: rgba(0, 0, 0, 0.55); /* assombrit la photo pour que le texte reste lisible */
+  padding: 6rem 0 5rem;
+  color: #fff;
+}
+.bc-titre {
+  font-family: "Dancing Script", cursive; /* police décorative réservée au titre */
+  font-size: clamp(2.8rem, 8vw, 5rem);
+  font-weight: 700;
+}
+.bc-sous-titre { font-size: 1.2rem; max-width: 640px; margin: 0 auto; }
+ 
+.bc-recherche { max-width: 520px; margin: 0 auto; }
+ 
+.bc-carte {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+.bc-carte-icone { font-size: 2.2rem; }
+ 

@@ -1,12 +1,12 @@
-<IfModule mod_rewrite.c>
-  RewriteEngine On
-  RewriteBase /
+RewriteEngine On
 
-  # Laisser passer les fichiers et dossiers existants
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
+# Les vrais fichiers (JS, CSS, images, sitemap…) sont servis tels quels
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
 
-  # Envoyer les routes React vers index.html
-  RewriteRule ^ index.html [L]
-</IfModule>
+# Routes connues de l'application → index.html avec le code 200
+RewriteRule ^(recettes|recette/[0-9]+|connexion|inscription|profil|mentions-legales)?/?$ index.html [L]
+
+# Tout le reste → index.html, mais avec le code 404
+ErrorDocument 404 /index.html

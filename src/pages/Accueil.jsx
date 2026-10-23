@@ -1,58 +1,65 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-
-export default function Accueil() {
-  const navigate = useNavigate();
-
-  const [nom, setNom] = useState(() => localStorage.getItem("nom"));
-  const [token, setToken] = useState(() => localStorage.getItem("token"));
-
-  function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("nom");
-
-    setNom(null);
-    setToken(null);
-
-    navigate("/login");
-  }
-
+import { Link } from "react-router-dom";
+import "../css/accueil.css";
+ 
+// Mets ta propre image (libre de droits ou à toi) dans public/images/
+const IMAGE_FOND = "/images/hero-cuisine.jpg";
+ 
+const atouts = [
+  { icon: "🍲", titre: "Des recettes", texte: "Découvrez les recettes partagées par la communauté." },
+  { icon: "✍️", titre: "Partagez", texte: "Publiez vos propres recettes avec photos et étapes." },
+  { icon: "⭐", titre: "Notez", texte: "Donnez votre avis et trouvez les meilleures recettes." },
+];
+ 
+export default function Accueil({ utilisateur }) {
   return (
-    <section className="container py-5">
-      <h1 className="mb-3 text-light">Accueil</h1>
-
-      <h2 className="h4 mb-4 text-light">
-        Bienvenue sur le site de partage de recettes Bravo Cuistot
-      </h2>
-
-      {token && nom ? (
-        <div className="alert alert-success">
-          <p>
-            Bonjour, <strong>{nom}</strong> 👋 Vous êtes connecté sur le site
-            de partage de recettes Bravo Cuistot.
-          </p>
-
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={handleLogout}
-          >
-            Se déconnecter
-          </button>
+    <div className="bc-accueil">
+      <section className="bc-hero" style={{ backgroundImage: `url(${IMAGE_FOND})` }}>
+        <div className="bc-hero-voile">
+          <div className="container text-center">
+            <h1 className="bc-titre">Bravo Cuistot</h1>
+            <p className="bc-sous-titre">
+              Le site de partage de recettes : découvrez, publiez et notez vos plats préférés.
+            </p>
+ 
+            <div className="d-flex gap-3 justify-content-center flex-wrap mt-4">
+              <Link to="/mesrecettes" className="btn btn-warning btn-lg">Voir les recettes</Link>
+              {utilisateur ? (
+                <Link to="/recette/new" className="btn btn-outline-light btn-lg">Publier une recette</Link>
+              ) : (
+                <>
+                  <Link to="/login" className="btn btn-outline-light btn-lg">Se connecter</Link>
+                  <Link to="/register" className="btn btn-outline-light btn-lg">S’inscrire</Link>
+                </>
+              )}
+            </div>
+ 
+            <form className="bc-recherche mt-4" action="/recherche" role="search">
+              <input
+                type="search"
+                name="q"
+                className="form-control form-control-lg"
+                placeholder="Rechercher une recette (ex. poulet yassa)"
+                aria-label="Rechercher une recette"
+              />
+            </form>
+          </div>
         </div>
-      ) : (
-        <div className="alert alert-info">
-          <p>Connectez-vous pour publier et partager vos recettes.</p>
-
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={() => navigate("/login")}
-          >
-            Se connecter
-          </button>
+      </section>
+ 
+      <section className="container py-5">
+        <div className="row g-4">
+          {atouts.map((a) => (
+            <div key={a.titre} className="col-12 col-md-4">
+              <article className="bc-carte h-100">
+                <div className="bc-carte-icone" aria-hidden="true">{a.icon}</div>
+                <h2 className="h5 mt-2">{a.titre}</h2>
+                <p className="mb-0 text-muted">{a.texte}</p>
+              </article>
+            </div>
+          ))}
         </div>
-      )}
-    </section>
+      </section>
+    </div>
   );
 }
+ 

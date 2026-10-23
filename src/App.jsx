@@ -18,6 +18,8 @@ import Mentions from "./pages/Mentions.jsx";
 import Note from "./pages/Note.jsx";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
+import NotFound from "./pages/NotFound";
+
 function App() {
   return (
     <>
@@ -35,6 +37,7 @@ function App() {
           <Route path="/recherche" element={<Recherche />} />
           <Route path="/delete-account" element={ <DeleteAccountButton />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="*" element={<NotFound />} />
           <Route path="/moderation" element={<ProtectedRoute allowedRoles={["moderateur"]}>
       <Moderation />
       </ProtectedRoute>} />
