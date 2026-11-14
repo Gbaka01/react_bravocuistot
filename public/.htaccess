@@ -1,12 +1,43 @@
+# --- Bravo Cuistot (React) - bravocuistot-goli.fr ---
+Options -MultiViews
 RewriteEngine On
+RewriteBase /
 
-# Les vrais fichiers (JS, CSS, images, sitemap…) sont servis tels quels
+# 1) Forcer HTTPS
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2) Supprimer le www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]
+
+# 3) Servir directement les fichiers et dossiers qui existent (JS, CSS, images...)
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Routes connues de l'application → index.html avec le code 200
-RewriteRule ^(recettes|recette/[0-9]+|connexion|inscription|profil|mentions-legales)?/?$ index.html [L]
+# 4) Un fichier manquant (.js, .png...) doit donner une vraie 404, pas index.html
+RewriteCond %{REQUEST_URI} \.[a-zA-Z0-9]{2,5}$
+RewriteRule ^ - [R=404,L]
 
-# Tout le reste → index.html, mais avec le code 404
-ErrorDocument 404 /index.html
+# 5) Toutes les autres routes vont vers l'application React
+RewriteRule ^ index.html [L]
+
+# Ne jamais mettre index.html en cache (pour que les nouveaux déploiements soient pris en compte)
+<Files "index.html">
+  <IfModule mod_headers.c>
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </IfModule>
+</Files>
+
+# Mettre en cache longtemps les fichiers de build (leur nom contient un hash)
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+</IfModule>
